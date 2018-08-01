@@ -64,17 +64,16 @@ class TestForm extends Component {
   };
 
   editRow = row => {
-    const { users } = this.state;
-    var i = users.indexOf(row);
+    const { users, fullName, phone, email, input } = this.state;
     this.setState({
-      [this.inputFullName.value]: this.state.users[i].fullName,
-      [this.state.fullName]: this.state.users[i].fullName,
-      [this.inputPhone.value]: this.state.users[i].phone,
-      [this.state.phone]: this.state.users[i].phone,
-      [this.inputEmail.value]: this.state.users[i].email,
-      [this.state.email]: this.state.users[i].email,
+      [this.inputFullName.value]: users[row].fullName,
+      fullName: users[row].fullName,
+      [this.inputPhone.value]: users[row].phone,
+      phone: users[row].phone,
+      [this.inputEmail.value]: users[row].email,
+      email: users[row].email,
       [this.rows.value]: row,
-      [this.state.input]: "Edit"
+      input: "Edit"
     });
     this.forceUpdate();
   };
