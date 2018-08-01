@@ -34,9 +34,7 @@ class TestForm extends Component {
       const i = Number(this.rows.value);
       this.setState(
         {
-          [this.state.fullName[i]]: this.inputFullName.value,
-          [this.state.phone[i]]: this.inputPhone.value,
-          [this.state.email[i]]: this.inputEmail.value,
+          [e.target.name]: e.target.value,
           submitInput: "Submit"
         },
         this.clearInputs(),
@@ -45,7 +43,7 @@ class TestForm extends Component {
     }
   };
 
-  clearInputs() {
+  clearInputs = () => {
     this.setState({
       [this.inputFullName.value]: "",
       [this.inputPhone.value]: "",
@@ -54,18 +52,20 @@ class TestForm extends Component {
       [this.state.phone]: "",
       [this.state.email]: ""
     });
-  }
+  };
 
-  deleteRow(row) {
-    const i = this.state.users.indexOf(row);
+  deleteRow = row => {
+    const { users } = this.state;
+    const i = users.indexOf(row);
     this.setState({
       users: this.state.users.slice(0, i)
     });
     this.clearInputs();
-  }
+  };
 
-  editRow(row) {
-    var i = this.state.users.indexOf(row);
+  editRow = row => {
+    const { users } = this.state;
+    var i = users.indexOf(row);
     this.setState({
       [this.inputFullName.value]: this.state.users[i].fullName,
       [this.state.fullName]: this.state.users[i].fullName,
@@ -77,7 +77,7 @@ class TestForm extends Component {
       [this.state.input]: "Edit"
     });
     this.forceUpdate();
-  }
+  };
 
   render() {
     return (
@@ -88,6 +88,7 @@ class TestForm extends Component {
             <div>ФИО</div>
             <Input
               type="text"
+              name="fullName"
               ref={ref => (this.inputFullName = ref)}
               onChange={e => this.setState({ fullName: e.target.value })}
               value={this.state.fullName}
@@ -98,6 +99,7 @@ class TestForm extends Component {
             <div>Телефон</div>
             <Input
               type="text"
+              name="phone"
               ref={ref => (this.inputPhone = ref)}
               onChange={e => this.setState({ phone: e.target.value })}
               value={this.state.phone}
@@ -108,6 +110,7 @@ class TestForm extends Component {
             <div>Почта</div>
             <Input
               type="email"
+              name="email"
               ref={ref => (this.inputEmail = ref)}
               onChange={e => this.setState({ email: e.target.value })}
               value={this.state.email}
