@@ -116,7 +116,7 @@ class TestForm extends Component {
           </div>
           <div>
             <div>
-              <Button
+              <input
                 type="submit"
                 ref={ref => (this.submitInput = ref)}
                 value={this.state.input}
