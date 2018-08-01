@@ -31,7 +31,7 @@ class TestForm extends Component {
         email: ""
       });
     } else if (this.submitInput.value === "Edit") {
-      const i = Number(this.rowRef.value);
+      const i = Number(this.rows.value);
       this.setState(
         {
           [this.state.fullName[i]]: this.inputFullName.value,
@@ -73,7 +73,7 @@ class TestForm extends Component {
       [this.state.phone]: this.state.users[i].phone,
       [this.inputEmail.value]: this.state.users[i].email,
       [this.state.email]: this.state.users[i].email,
-      [this.rowRef.value]: row,
+      [this.rows.value]: row,
       [this.state.input]: "Edit"
     });
     this.forceUpdate();
@@ -85,7 +85,7 @@ class TestForm extends Component {
         <form onSubmit={this.onSubmit}>
           <label>Users</label>
           <div>
-            <span>ФИО</span>
+            <div>ФИО</div>
             <Input
               type="text"
               ref={ref => (this.inputFullName = ref)}
@@ -95,7 +95,7 @@ class TestForm extends Component {
             />
           </div>
           <div>
-            <span>Телефон</span>
+            <div>Телефон</div>
             <Input
               type="text"
               ref={ref => (this.inputPhone = ref)}
@@ -105,7 +105,7 @@ class TestForm extends Component {
             />
           </div>
           <div>
-            <span>Почта</span>
+            <div>Почта</div>
             <Input
               type="email"
               ref={ref => (this.inputEmail = ref)}
@@ -124,7 +124,7 @@ class TestForm extends Component {
             </div>
           </div>
 
-          <input type="hidden" value="" ref={ref => (this.rowRef = ref)} />
+          <input type="hidden" value="" ref={ref => (this.rows = ref)} />
         </form>
         <div>
           <table>

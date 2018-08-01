@@ -19,7 +19,7 @@ const Button = ({
     },
     propClassName
   );
-  return <button className={className} {...other} />;
+  return <input type="submit" className={className} {...other} />;
 };
 
 export default withStyles(styles)(Button);
