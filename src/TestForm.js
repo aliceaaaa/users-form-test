@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Row from "./Row";
 import Input from "./Components/Input";
-import Button from "./Components/Button";
 
 class TestForm extends Component {
   constructor(props) {
@@ -31,21 +30,20 @@ class TestForm extends Component {
         },
         this.clearInputs()
       );
-    } else if (this.submitInput.value == "Edit") {
-      const { users } = this.state;
+    } else if (this.submitInput.value === "Edit") {
       const i = Number(this.rowCount.value);
       const updatedUsers = [...this.state.users];
-      (updatedUsers[i].fullName = this.state.fullName),
-        (updatedUsers[i].phone = this.state.phone),
-        (updatedUsers[i].email = this.state.email),
-        this.setState(
-          {
-            users: updatedUsers,
-            [this.submitInput.value]: "Submit"
-          },
-          this.clearInputs(),
-          this.forceUpdate()
-        );
+      updatedUsers[i].fullName = this.state.fullName;
+      updatedUsers[i].phone = this.state.phone;
+      updatedUsers[i].email = this.state.email;
+      this.setState(
+        {
+          users: updatedUsers,
+          [this.submitInput.value]: "Submit"
+        },
+        this.clearInputs(),
+        this.forceUpdate()
+      );
     }
   };
 
@@ -71,15 +69,19 @@ class TestForm extends Component {
   };
 
   editRow = row => {
-    this.inputFullName.value = this.state.users[row].fullName;
-    this.state.fullName = this.state.users[row].fullName;
-    this.inputPhone.value = this.state.users[row].phone;
-    this.state.phone = this.state.users[row].phone;
-    this.inputEmail.value = this.state.users[row].email;
-    this.state.email = this.state.users[row].email;
-    this.rowCount.value = row;
-    this.state.input = "Edit";
-    this.forceUpdate();
+    this.setState(
+      {
+        [this.inputFullName.value]: this.state.users[row].fullName,
+        fullName: this.state.users[row].fullName,
+        [this.inputPhone.value]: this.state.users[row].phone,
+        phone: this.state.users[row].phone,
+        [this.inputEmail.value]: this.state.users[row].email,
+        email: this.state.users[row].email,
+        [this.rowCount.value]: row,
+        input: "Edit"
+      },
+      this.forceUpdate()
+    );
   };
 
   render() {
