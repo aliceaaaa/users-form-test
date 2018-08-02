@@ -14,6 +14,7 @@ class TestForm extends Component {
       users: []
     };
   }
+
   onSubmit = e => {
     e.preventDefault();
 
@@ -24,22 +25,27 @@ class TestForm extends Component {
         email: this.state.email
       };
 
-      this.setState({
-        users: [...this.state.users, user],
-        fullName: "",
-        phone: "",
-        email: ""
-      });
-    } else if (this.submitInput.value === "Edit") {
-      const i = Number(this.rows.value);
       this.setState(
         {
-          [e.target.name]: e.target.value,
-          submitInput: "Submit"
+          users: [...this.state.users, user]
         },
-        this.clearInputs(),
-        this.forceUpdate()
+        this.clearInputs()
       );
+    } else if (this.submitInput.value == "Edit") {
+      const { users } = this.state;
+      const i = Number(this.rowCount.value);
+      const updatedUsers = [...this.state.users];
+      (updatedUsers[i].fullName = this.state.fullName),
+        (updatedUsers[i].phone = this.state.phone),
+        (updatedUsers[i].email = this.state.email),
+        this.setState(
+          {
+            users: updatedUsers,
+            [this.submitInput.value]: "Submit"
+          },
+          this.clearInputs(),
+          this.forceUpdate()
+        );
     }
   };
 
@@ -48,9 +54,10 @@ class TestForm extends Component {
       [this.inputFullName.value]: "",
       [this.inputPhone.value]: "",
       [this.inputEmail.value]: "",
-      [this.state.fullName]: "",
-      [this.state.phone]: "",
-      [this.state.email]: ""
+      fullName: "",
+      phone: "",
+      email: "",
+      input: "Submit"
     });
   };
 
@@ -64,17 +71,14 @@ class TestForm extends Component {
   };
 
   editRow = row => {
-    const { users, fullName, phone, email, input } = this.state;
-    this.setState({
-      [this.inputFullName.value]: users[row].fullName,
-      fullName: users[row].fullName,
-      [this.inputPhone.value]: users[row].phone,
-      phone: users[row].phone,
-      [this.inputEmail.value]: users[row].email,
-      email: users[row].email,
-      [this.rows.value]: row,
-      input: "Edit"
-    });
+    this.inputFullName.value = this.state.users[row].fullName;
+    this.state.fullName = this.state.users[row].fullName;
+    this.inputPhone.value = this.state.users[row].phone;
+    this.state.phone = this.state.users[row].phone;
+    this.inputEmail.value = this.state.users[row].email;
+    this.state.email = this.state.users[row].email;
+    this.rowCount.value = row;
+    this.state.input = "Edit";
     this.forceUpdate();
   };
 
@@ -126,7 +130,7 @@ class TestForm extends Component {
             </div>
           </div>
 
-          <input type="hidden" value="" ref={ref => (this.rows = ref)} />
+          <input type="hidden" value="" ref={ref => (this.rowCount = ref)} />
         </form>
         <div>
           <table>
